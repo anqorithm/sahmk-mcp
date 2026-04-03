@@ -1,5 +1,14 @@
 # sahmk-mcp
 
+[![PyPI version](https://img.shields.io/pypi/v/sahmk-mcp.svg)](https://pypi.org/project/sahmk-mcp/)
+[![Python versions](https://img.shields.io/pypi/pyversions/sahmk-mcp.svg)](https://pypi.org/project/sahmk-mcp/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/sahmk-mcp.svg)](https://pypi.org/project/sahmk-mcp/)
+[![CI](https://github.com/anqorithm/sahmk-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/anqorithm/sahmk-mcp/actions/workflows/ci.yml)
+[![Release](https://github.com/anqorithm/sahmk-mcp/actions/workflows/publish-pypi.yml/badge.svg)](https://github.com/anqorithm/sahmk-mcp/actions/workflows/publish-pypi.yml)
+[![GitHub release](https://img.shields.io/github/v/release/anqorithm/sahmk-mcp.svg)](https://github.com/anqorithm/sahmk-mcp/releases)
+[![GitHub stars](https://img.shields.io/github/stars/anqorithm/sahmk-mcp.svg?style=social)](https://github.com/anqorithm/sahmk-mcp/stargazers)
+[![License](https://img.shields.io/github/license/anqorithm/sahmk-mcp.svg)](LICENSE)
+
 Official MCP server for [Sahmk](https://sahmk.sa/developers) — gives AI agents access to real-time and historical Saudi stock market (Tadawul) data.
 
 ## Tools
