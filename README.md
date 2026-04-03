@@ -1,7 +1,7 @@
 # sahmk-mcp
 
 [![PyPI version](https://img.shields.io/pypi/v/sahmk-mcp.svg)](https://pypi.org/project/sahmk-mcp/)
-[![Python versions](https://img.shields.io/pypi/pyversions/sahmk-mcp.svg)](https://pypi.org/project/sahmk-mcp/)
+[![Python](https://img.shields.io/badge/python-%3E%3D3.10-3776AB.svg)](https://pypi.org/project/sahmk-mcp/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/sahmk-mcp.svg)](https://pypi.org/project/sahmk-mcp/)
 [![CI](https://github.com/anqorithm/sahmk-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/anqorithm/sahmk-mcp/actions/workflows/ci.yml)
 [![Release](https://github.com/anqorithm/sahmk-mcp/actions/workflows/publish-pypi.yml/badge.svg)](https://github.com/anqorithm/sahmk-mcp/actions/workflows/publish-pypi.yml)
