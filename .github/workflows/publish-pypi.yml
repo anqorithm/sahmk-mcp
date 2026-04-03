@@ -1,53 +1,71 @@
 name: Release
 
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref_name }}
+      cancel-in-progress: false
+    permissions:
+      contents: write
+
+    outputs:
+      released: ${{ steps.semantic-release.outputs.released || 'false' }}
+      tag: ${{ steps.semantic-release.outputs.tag }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          ref: ${{ github.ref_name }}
 
-      - name: Install build and validation tools
-        run: python -m pip install --upgrade build twine
+      - name: Force release branch to workflow SHA
+        run: git reset --hard ${{ github.sha }}
 
-      - name: Build package
-        run: python -m build
+      - name: Run semantic release
+        id: semantic-release
+        uses: python-semantic-release/python-semantic-release@v10.5.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git_committer_name: github-actions
+          git_committer_email: actions@users.noreply.github.com
 
-      - name: Check distribution metadata
-        run: python -m twine check dist/*
+      - name: Upload assets to GitHub release
+        if: steps.semantic-release.outputs.released == 'true'
+        uses: python-semantic-release/publish-action@v10.5.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.semantic-release.outputs.tag }}
 
-      - name: Upload release artifacts
+      - name: Upload distribution artifacts
+        if: steps.semantic-release.outputs.released == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: python-package-distributions
           path: dist/
+          if-no-files-found: error
 
   publish-pypi:
-    needs: build
+    needs: release
+    if: needs.release.outputs.released == 'true'
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: read
+      id-token: write
     environment:
       name: pypi
+
     steps:
-      - name: Download release artifacts
+      - name: Download distribution artifacts
         uses: actions/download-artifact@v4
         with:
           name: python-package-distributions
